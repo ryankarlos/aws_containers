@@ -29,7 +29,6 @@ module "iam" {
 
 module "ecs" {
   source = "./modules/ecs"
-
   cluster_name       = "${var.project}-cluster"
   task_family        = "${var.project}-task"
   service_name       = "${var.project}-service"
@@ -43,4 +42,11 @@ module "ecs" {
   aws_region         = var.aws_region
   execution_role_arn = module.iam.ecs_execution_role_arn
   task_role_arn      = module.iam.ecs_task_role_arn
+}
+
+
+
+resource "aws_wafregional_web_acl_association" "waf_elb_integration" {
+  resource_arn = module.alb.alb_arn
+  web_acl_id   = module.waf.web_acl_id
 }
