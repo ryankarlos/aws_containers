@@ -1,52 +1,42 @@
 module "ecr" {
-  source          = "./modules/ecr"
-  repository_name = "${var.project}-repo"
-}
+  source          = "../modules/ecr"
+  repository_name = var.repository_name
+  region          = var.region
+  dkr_img_src_path = var.dkr_img_src_path
+  image_tag = var.image_tag
 
-module "acm" {
-  source      = "./modules/acm"
-  domain_name = var.domain_name
 }
 
 module "alb" {
-  source            = "./modules/alb"
-  alb_name          = "${var.project}-alb"
-  vpc_id            = var.vpc_id
-  public_subnets    = var.public_subnets
-  certificate_arn   = module.acm.certificate_arn
-  container_port    = var.container_port
-  target_group_name = "${var.project}-tg"
+  source          = "../modules/alb"
+  vpc_id          = var.vpc_id
+  subnets         = var.subnets
+  security_groups = var.security_groups
+  credentials     = var.credentials
 }
 
 module "iam" {
-  source = "./modules/iam"
-
-  project        = var.project
-  aws_region     = var.aws_region
-  aws_account_id = var.aws_account_id
-  s3_bucket_arn  = var.s3_bucket_arn
+  source = "../modules/iam"
 }
 
 module "ecs" {
-  source = "./modules/ecs"
-  cluster_name       = "${var.project}-cluster"
-  task_family        = "${var.project}-task"
-  service_name       = "${var.project}-service"
-  container_name     = "${var.project}-container"
-  ecr_repository_url = module.ecr.repository_url
-  container_port     = var.container_port
+  source             = "../modules/ecs"
+  ecr_repository_url = join(":", [module.ecr.repository_url, var.image_tag])
   target_group_arn   = module.alb.target_group_arn
-  private_subnets    = var.private_subnets
-  task_cpu           = var.task_cpu
-  task_memory        = var.task_memory
-  aws_region         = var.aws_region
   execution_role_arn = module.iam.ecs_execution_role_arn
   task_role_arn      = module.iam.ecs_task_role_arn
+  security_groups  = var.security_groups
+  subnets          = var.subnets
+  load_balancer_name = module.alb.alb_arn
 }
 
 
+module "waf" {
+  source             = "../modules/waf"
+}
 
 resource "aws_wafregional_web_acl_association" "waf_elb_integration" {
   resource_arn = module.alb.alb_arn
   web_acl_id   = module.waf.web_acl_id
 }
+

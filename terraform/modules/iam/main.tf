@@ -10,7 +10,7 @@ resource "aws_iam_role" "ecs_execution_role" {
     }]
     Version = "2012-10-17"
   })
-  name                  = "ECSTaskExecutionRole"
+  name = "ECSTaskExecutionRole"
 }
 
 resource "aws_iam_role" "ecs_task_role" {
@@ -24,7 +24,7 @@ resource "aws_iam_role" "ecs_task_role" {
     }]
     Version = "2012-10-17"
   })
-  name                  = "ECSTaskRole"
+  name = "ECSTaskRole"
 }
 
 

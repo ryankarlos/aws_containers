@@ -10,15 +10,10 @@ output "cluster_arn" {
 
 output "service_id" {
   description = "The ID of the ECS service"
-  value       = aws_ecs_service.app.id
+  value       = aws_ecs_service.ecs_service.id
 }
 
 output "task_definition_arn" {
   description = "The ARN of the Task Definition"
-  value       = aws_ecs_task_definition.app.arn
-}
-
-output "security_group_id" {
-  description = "The ID of the ECS tasks security group"
-  value       = aws_security_group.ecs_tasks.id
+  value       = aws_ecs_task_definition.ecs_task_definition.arn
 }

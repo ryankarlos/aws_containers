@@ -1,7 +1,7 @@
 
 resource "aws_wafv2_web_acl" "waf_default" {
-  name          = "load-balance-waf"
-  scope         = "REGIONAL"
+  name  = "load-balance-waf"
+  scope = "REGIONAL"
   custom_response_body {
     content = jsonencode({
       error = "WAF access denied"
@@ -55,14 +55,14 @@ resource "aws_wafv2_web_acl" "waf_default" {
     priority = 2
 
     action {
-      Captcha {}
+      captcha {}
     }
 
     statement {
       rate_based_statement {
-        limit              = 10
-        evaluation_window_sec =  60
-        aggregate_key_type = "IP"
+        limit                 = 10
+        evaluation_window_sec = 60
+        aggregate_key_type    = "IP"
 
       }
     }
@@ -86,5 +86,5 @@ resource "aws_wafv2_web_acl" "waf_default" {
 
 
 
-    
-    
+
+
