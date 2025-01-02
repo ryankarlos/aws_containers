@@ -47,3 +47,9 @@ variable "image_tag" {
   type        = string
   default = "latest"
 }
+
+
+
+variable "force_image_rebuild" {
+  type    = bool
+}

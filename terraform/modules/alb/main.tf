@@ -24,7 +24,7 @@ resource "aws_lb_listener" "frontend_https" {
 
 
 resource "aws_lb_listener" "frontend_http" {
-  load_balancer_arn = aws_iam_server_certificate.ssl_cert.arn
+  load_balancer_arn = aws_lb.app.arn
   port              = 80
   protocol          = "HTTP"
   default_action {
@@ -60,7 +60,7 @@ resource "aws_lb_target_group" "app" {
 
 
 resource "aws_iam_server_certificate" "ssl_cert" {
-  name_prefix      = "ssl_cert"
+  name      =         "custom-cert"
   certificate_body = file(var.credentials.cert)
   private_key      = file(var.credentials.pk)
 
@@ -68,4 +68,6 @@ resource "aws_iam_server_certificate" "ssl_cert" {
     create_before_destroy = true
   }
 }
+
+
 

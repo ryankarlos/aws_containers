@@ -4,6 +4,7 @@ module "ecr" {
   region          = var.region
   dkr_img_src_path = var.dkr_img_src_path
   image_tag = var.image_tag
+  force_image_rebuild = var.force_image_rebuild
 
 }
 
@@ -13,6 +14,7 @@ module "alb" {
   subnets         = var.subnets
   security_groups = var.security_groups
   credentials     = var.credentials
+  waf_acl_id   = module.waf.waf_acl_id
 }
 
 module "iam" {
@@ -33,10 +35,5 @@ module "ecs" {
 
 module "waf" {
   source             = "../modules/waf"
-}
-
-resource "aws_wafregional_web_acl_association" "waf_elb_integration" {
-  resource_arn = module.alb.alb_arn
-  web_acl_id   = module.waf.web_acl_id
 }
 

@@ -43,17 +43,12 @@ resource "aws_ecs_service" "ecs_service" {
   deployment_minimum_healthy_percent = 100
   desired_count                      = 1
   health_check_grace_period_seconds  = 0
-  iam_role                           = var.task_role_arn
   launch_type                        = "FARGATE"
   name                               = var.service_name
   task_definition                    = aws_ecs_task_definition.ecs_task_definition.arn
-  deployment_controller {
-    type = "CODE_DEPLOY"
-  }
   load_balancer {
     container_name   = var.container_name
     container_port   = var.container_port
-    elb_name         = var.load_balancer_name
     target_group_arn = var.target_group_arn
   }
   network_configuration {

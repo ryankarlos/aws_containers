@@ -1,6 +1,5 @@
 
 locals {
-  repository_name    = var.repository_name
   dkr_img_src_path   = var.dkr_img_src_path
   ecr_repo           = "${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com"
   dkr_img_src_sha256 = sha256(join("", [for f in fileset(".", "${local.dkr_img_src_path}/**") : file(f)]))
@@ -9,7 +8,7 @@ locals {
 
 locals {
 
-  image_uri = "${aws_ecr_repository.app.name}/${var.repository_name}:${var.image_tag}"
+  image_uri = "${local.ecr_repo}/${aws_ecr_repository.app.name}:${var.image_tag}"
 
 }
 
@@ -32,6 +31,7 @@ locals {
 resource "aws_ecr_repository" "app" {
   image_tag_mutability = "MUTABLE"
   name                 = var.repository_name
+  force_delete         = true
   image_scanning_configuration {
     scan_on_push = var.scan_on_push
   }

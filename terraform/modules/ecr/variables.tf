@@ -27,5 +27,4 @@ variable "region" {
 
 variable "force_image_rebuild" {
   type    = bool
-  default = true
 }

@@ -57,3 +57,8 @@ variable "credentials" {
   _EOT
 }
 
+
+variable "waf_acl_id" {
+  description = "waf acl id"
+  type        = string
+}

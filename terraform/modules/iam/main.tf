@@ -1,5 +1,6 @@
 
 resource "aws_iam_role" "ecs_execution_role" {
+  description = "Allows ECS tasks to call AWS services on your behalf."
   assume_role_policy = jsonencode({
     Statement = [{
       Action = "sts:AssumeRole"
@@ -14,6 +15,7 @@ resource "aws_iam_role" "ecs_execution_role" {
 }
 
 resource "aws_iam_role" "ecs_task_role" {
+  description = "Allows ECS tasks to call AWS services on your behalf."
   assume_role_policy = jsonencode({
     Statement = [{
       Action = "sts:AssumeRole"
