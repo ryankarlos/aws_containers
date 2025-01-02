@@ -14,7 +14,7 @@ module "alb" {
   subnets         = var.subnets
   security_groups = var.security_groups
   credentials     = var.credentials
-  waf_acl_id   = module.waf.waf_acl_id
+  waf_arn   = module.waf.waf_arn
 }
 
 module "iam" {
@@ -30,6 +30,7 @@ module "ecs" {
   security_groups  = var.security_groups
   subnets          = var.subnets
   load_balancer_name = module.alb.alb_arn
+  region = var.region
 }
 
 

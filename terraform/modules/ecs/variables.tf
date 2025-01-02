@@ -104,3 +104,7 @@ variable "security_groups" {
   type        = list(any)
 }
 
+variable "region" {
+  description = "aws region"
+  type        = string
+}

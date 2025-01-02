@@ -70,4 +70,9 @@ resource "aws_iam_server_certificate" "ssl_cert" {
 }
 
 
+resource "aws_wafv2_web_acl_association" "acl_assoc" {
+  resource_arn = aws_lb.app.arn
+  web_acl_arn  = var.waf_arn
+}
+
 

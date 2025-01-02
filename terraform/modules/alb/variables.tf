@@ -58,7 +58,7 @@ variable "credentials" {
 }
 
 
-variable "waf_acl_id" {
-  description = "waf acl id"
+variable "waf_arn" {
+  description = "waf arn"
   type        = string
 }

@@ -1,7 +1,13 @@
 
+
+locals {
+  waf_id = "${aws_wafv2_web_acl.waf_default.id}/${var.waf_name}/${var.waf_scope}"
+
+}
+
 resource "aws_wafv2_web_acl" "waf_default" {
-  name  = "load-balance-waf"
-  scope = "REGIONAL"
+  name  = var.waf_name
+  scope = var.waf_scope
   custom_response_body {
     content = jsonencode({
       error = "WAF access denied"
