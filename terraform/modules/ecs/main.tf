@@ -7,7 +7,7 @@ resource "aws_ecs_cluster" "main" {
 }
 
 resource "aws_ecs_task_definition" "ecs_task_definition" {
-  family                = var.task_def_family
+  family = var.task_def_family
   container_definitions = jsonencode([
     {
       name      = "frontend"
@@ -21,13 +21,13 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
         protocol      = "tcp"
       }]
       logConfiguration = {
-            logDriver = "awslogs"
-            options   = {
-                "awslogs-group"         = "/ecs/${var.task_def_family}"
-                "awslogs-region"        = var.region
-                "awslogs-stream-prefix" = "ecs"
-            }
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = "/ecs/${var.task_def_family}"
+          "awslogs-region"        = var.region
+          "awslogs-stream-prefix" = "ecs"
         }
+      }
   }])
   cpu                      = var.task_cpu
   execution_role_arn       = var.execution_role_arn

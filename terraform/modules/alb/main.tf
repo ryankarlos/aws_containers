@@ -60,7 +60,7 @@ resource "aws_lb_target_group" "app" {
 
 
 resource "aws_iam_server_certificate" "ssl_cert" {
-  name      =         "custom-cert"
+  name             = "custom-cert"
   certificate_body = file(var.credentials.cert)
   private_key      = file(var.credentials.pk)
 

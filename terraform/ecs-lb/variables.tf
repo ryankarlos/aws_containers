@@ -45,11 +45,11 @@ variable "dkr_img_src_path" {
 variable "image_tag" {
   description = "image tag"
   type        = string
-  default = "latest"
+  default     = "latest"
 }
 
 
 
 variable "force_image_rebuild" {
-  type    = bool
+  type = bool
 }

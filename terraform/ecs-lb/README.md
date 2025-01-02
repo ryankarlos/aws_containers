@@ -69,3 +69,10 @@ Navigate to the DNS name of the load balancer and paste it in browser with a /do
 You should see thE FASTAPI doc where you can test out the endpoint.
 
 You should also be able to navigate to https link (since we are using a self seigned certificate, the browser may give you a security risk warning which you will need to accept to be directed to the site)
+
+
+When you have finished, tear down the resources to avoid incurring costs
+
+```
+terraform destroy
+```

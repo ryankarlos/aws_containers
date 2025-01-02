@@ -41,19 +41,19 @@ variable "service_name" {
 variable "cluster_name" {
   description = "ECS service name"
   type        = string
-  default = "devcluster"
+  default     = "devcluster"
 }
 
 variable "container_name" {
   description = "Container Name"
   type        = string
-  default = "frontend"
+  default     = "frontend"
 }
 
 variable "task_def_family" {
   description = "Unique name for task def"
   type        = string
-  default = "default_task_def"
+  default     = "default_task_def"
 }
 
 

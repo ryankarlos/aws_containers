@@ -1,9 +1,9 @@
 variable "waf_name" {
-  type        = string
-  default =  "load-balance-waf"
+  type    = string
+  default = "load-balance-waf"
 }
 
 variable "waf_scope" {
-  type        = string
+  type    = string
   default = "REGIONAL"
 }
